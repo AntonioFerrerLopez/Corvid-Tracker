@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="sp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Antonio Ferrer Lopez">
+    <link rel="stylesheet" type="text/css" href="./styles/main.css">
+    <title>Corvid-Tracker</title>
+</head>
+<body>
+
+    <header class="container">
+        <h1 class="title">CORVID - TRACKER </h1>
+        <br>
+        <h2 class="subtitle">Datos actualizados sobre Corvid-19 </h2>
+    </header>
+    <section class="spainDataNow">
+        <table class="spainNow">
+            <tr> <td colspan = "3" id="countryNow"> </td> </tr>
+            <tr>
+                    <td>CONFIRMADOS</td>
+                    <td>DECESOS</td>
+                    <td>RECUPERACIONES</td>
+            </tr>
+            <tr>
+                    <td id="spConfirmedNow">value1</td>
+                    <td id="spDeathNow">value2</td>
+                    <td id="spRecoveredNow">value3</td>
+            </tr>
+        </table>
+
+    </section>
+
+
+    <section class="spaintimeLine">
+        <article id="confirmed">
+            <table id="timelineConfirmed"></table>
+        </article>
+        <article id="death">
+            <table id="timelineDeath"></table>
+        </article>
+        <article id="recovered">
+            <table id="timelineRecovered"></table>
+        </article>
+        
+    </section>
+
+    
+ <script src="./js/main.js"></script>
+
+</body>
+</html>
