@@ -1,0 +1,40 @@
+html{
+    box-sizing: border-box;
+    margin : 0 auto ; 
+    background: black;
+    color: green;  
+}
+.title , .subtitle{
+
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.subtitle{
+    font-size: 1.5em;
+}
+
+.spainDataNow{
+    display: flex;
+    justify-content: center;
+}
+
+    table {
+        border-collapse: collapse;
+    }
+    table ,th , td {
+        border: 1px solid green ; 
+        padding : 0.5em;
+        text-align: center;
+    }
+    #countryNow{
+        text-transform: uppercase;
+    }
+
+.spaintimeLine{
+    display: flex; 
+    margin : 2em; 
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: wrap;
+    
+}
