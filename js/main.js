@@ -1,11 +1,7 @@
 const endpoint = 'https://coronavirus-tracker-api.herokuapp.com/v2/';
 const spainId = 18;
 const italyId = 16;
-const TABLE_TYPE = {
-    confirmed: 'confirmed',
-    deaths: 'deaths',
-    recovered: 'recovered'
-};
+const NO_CONFIRMED_CASES = 0 ;
 
 const spConfirmedNow = document.getElementById('spConfirmedNow');
 const spDeathNow = document.getElementById('spDeathNow');
@@ -14,6 +10,7 @@ const countryNow = document.getElementById('countryNow');
 const tableTimelineConfirmed = document.getElementById('timelineConfirmed');
 const tableTimelineDeath = document.getElementById('timelineDeath');
 const tableTimelineRecovered = document.getElementById('timelineRecovered');
+const timelineTable = document.getElementById('timelineTable');
 
 
 const getLocationById = async (idLocation) => {
@@ -35,42 +32,47 @@ const renderingTimeLineData = (data) => {
         deaths,
         recovered
     } = data.location.timelines;
-    renderTimelineTables(TABLE_TYPE.confirmed, confirmed);
-    renderTimelineTables(TABLE_TYPE.deaths, deaths);
-    renderTimelineTables(TABLE_TYPE.recovered, recovered);
+    createTimelineTables(data.location.timelines);
+
 
 }
 
-const renderTimelineTables = (type, data) => {
+const createNowTable = () =>{
+
+}
+
+const createTimelineTables = (data) => {
+
+     console.log(data);
     let tableValues =
         `   <tr>
-                <td colspan = '2' > ${type} </td>
+                <td colspan = '4' > Linea de tiempo en ESPAÑA </td>
             </tr>
             <tr>
                 <td>FECHA</td>
-                <td>CASOS</td>
+                <td>Confirmados</td>
+                <td>Fallecidos</td>
+                <td>Recuperados</td>
             </tr>`;
 
-    Object.keys(data.timeline).forEach((key) => {
-        if(data.timeline[key] > 0 ){
-            let date = new Date(key);
-            tableValues += `
-            <tr><td>${date.toDateString()}</td> <td>${data.timeline[key]}</td></tr>
-            `
-        }
-    });
+        Object.keys(data.confirmed.timeline).map((dateValue , value )=>{
+            let  dayofValue = new Date(dateValue); 
+            if(data.confirmed.timeline[dateValue] > NO_CONFIRMED_CASES ){
+                tableValues += 
+                `
+                <tr>
+                    <td>${dayofValue.toLocaleDateString()}</td>
+                    <td>${data.confirmed.timeline[dateValue]}</td>
+                    <td>${data.deaths.timeline[dateValue]}</td>
+                    <td>${data.recovered.timeline[dateValue]}</td>
+                </tr>
+                `
+            }
 
-    switch (type) {
-        case 'confirmed':
-            tableTimelineConfirmed.innerHTML = tableValues;
-            break;
-        case 'deaths':
-            tableTimelineDeath.innerHTML = tableValues;
-            break;
-        case 'recovered':
-            tableTimelineRecovered.innerHTML = tableValues;
-            break;
-    }
+        })
+
+    timelineTable.innerHTML = tableValues;
+
 }
 
 
