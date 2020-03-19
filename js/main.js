@@ -1,6 +1,7 @@
 const endpoint = 'https://coronavirus-tracker-api.herokuapp.com/v2/';
 const spainId = 18 ;  
 const italyId = 16; 
+const TABLE_TYPE = {confirmed :'confirmed' , deaths : 'deaths' , recovered :'recovered'}; 
 
 const spConfirmedNow = document.getElementById('spConfirmedNow');
 const spDeathNow = document.getElementById('spDeathNow');
@@ -34,72 +35,48 @@ const renderingNowData = (data)=>{
 
 const renderingTimeLineData =(data)=>{
     const {confirmed , deaths, recovered } = data.location.timelines;
-    renderConfirmedTable(confirmed); 
-    renderDeathTable(deaths);
-    renderRecoveredTable(recovered);
+    renderTimelineTables(TABLE_TYPE.confirmed , confirmed ); 
+    renderTimelineTables(TABLE_TYPE.deaths , deaths ); 
+    renderTimelineTables(TABLE_TYPE.recovered , recovered); 
+    
 
 }
 
-const renderConfirmedTable = (confirmed)=>{
-    let tableConfirmedValues = `  
+const renderTimelineTables = (type , data) =>{
+    let tableValues = `  
     <tr>
-        <td colspan = '2' > CONFIRMADOS </td>
+        <td colspan = '2' > ${type} </td>
     </tr>
     <tr>
         <td>FECHA</td>
         <td>CASOS</td>
     </tr>`; 
 
-Object.keys(confirmed.timeline).forEach((key , value)=>{
-let date = new Date(key);
-tableConfirmedValues += `
-<tr><td>${date.toDateString()}</td> <td>${confirmed.timeline[key]}</td></tr>
-`
-}); 
-
-tableTimelineConfirmed.innerHTML = tableConfirmedValues;
-}
-
-renderDeathTable= (deaths)=>{
-   
-    let tableValues = `  
-    <tr>
-        <td colspan = '2' >FALLECIDOS </td>
-    </tr>
-    <tr>
-        <td>FECHA</td>
-        <td>NUMERO</td>
-    </tr>`; 
-
-Object.keys(deaths.timeline).forEach((key , value)=>{
+Object.keys(data.timeline).forEach((key)=>{
 let date = new Date(key);
 tableValues += `
-<tr><td>${date.toDateString()}</td> <td>${deaths.timeline[key]}</td></tr>
+<tr><td>${date.toDateString()}</td> <td>${data.timeline[key]}</td></tr>
 `
 }); 
 
-tableTimelineDeath.innerHTML = tableValues;
+switch(type){
+    case 'confirmed': 
+        tableTimelineConfirmed.innerHTML = tableValues;
+    break; 
+    case 'deaths': 
+        tableTimelineDeath.innerHTML = tableValues;
+    break; 
+    case 'recovered':
+        tableTimelineRecovered.innerHTML = tableValues;
+    break;
 }
 
-const renderRecoveredTable = (recovered)=>{
-    let tableValues = `  
-    <tr>
-        <td colspan = '2' > RECUPERADOS </td>
-    </tr>
-    <tr>
-        <td>FECHA</td>
-        <td>NUMERO</td>
-    </tr>`; 
 
-Object.keys(recovered.timeline).forEach((key , value)=>{
-let date = new Date(key);
-tableValues += `
-<tr><td>${date.toDateString()}</td> <td>${recovered.timeline[key]}</td></tr>
-`
-}); 
 
-tableTimelineRecovered.innerHTML = tableValues;
 }
+
+
+
 
 const formatData = (data)=>{
     renderingNowData(data); 
