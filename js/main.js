@@ -52,10 +52,12 @@ const renderTimelineTables = (type, data) => {
             </tr>`;
 
     Object.keys(data.timeline).forEach((key) => {
-        let date = new Date(key);
-        tableValues += `
-        <tr><td>${date.toDateString()}</td> <td>${data.timeline[key]}</td></tr>
-        `
+        if(data.timeline[key] > 0 ){
+            let date = new Date(key);
+            tableValues += `
+            <tr><td>${date.toDateString()}</td> <td>${data.timeline[key]}</td></tr>
+            `
+        }
     });
 
     switch (type) {
@@ -72,13 +74,10 @@ const renderTimelineTables = (type, data) => {
 }
 
 
-
-
 const formatData = (data) => {
     renderingNowData(data);
     renderingTimeLineData(data);
 }
-
 
 const init = () => {
 
