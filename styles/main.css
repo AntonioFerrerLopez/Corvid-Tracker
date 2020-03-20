@@ -14,7 +14,7 @@ html{
 }
 
 .charts{
-    width: 60%;
+    width: 100%;
     display: flex;
 }
     #canvasTimeline{
